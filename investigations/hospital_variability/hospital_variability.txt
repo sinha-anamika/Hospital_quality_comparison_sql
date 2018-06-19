@@ -1,0 +1,48 @@
+
+
+
+Which procedures have the greatest variability between hospitals?
+
+
+APPROACH AND JUSTIFICATION
+---------------------------
+
+In order to answer the above question in the context of the data provided, I used the procedures_tfm table which has been created by combining all procedure data from "timely and effective care" and "Complications and deaths" files. 
+
+In defining procedure variability, I have used the standard deviation of the normalized score for each procedure across hospitals. When I ran the query, I also checked the number of hospitals that were reporting a score for that procedure. 
+
+I considered whether a  procedure with high variation across only very few hospitals(100 out of 4182) be ranked higher than a procedure with slightly lower variation across 2000 hospitals? This depends on the business needs. One can choose to not consider procedures which have data for less than 10 percent of hospitals depending on business scenario.
+
+
+I did run the sql with that modification but chose not to do so in the final results and have included all procedures.
+
+
+RESULT 
+------
+In the data below, the last column is number of hospitals that reported values for the procedure. The column to the left of it is the standard deviation.
+
+ 
+OP_31   		Percentage of patients aged 18 years and older who had cataract surgery and had improvement in visual function achieved within 90 days following the cataract surgery	0.2965	55
+OP_29			Appropriate Follow-Up Interval for Normal Colonoscopy in Average Risk Patients	0.2444	2821
+OP_2			Fibrinolytic Therapy Received Within 30 Minutes of ED Arrival	0.2294	73
+OP_30			Colonoscopy Interval for Patients with a History of Adenomatous Polyps - Avoidance of Inappropriate Use	0.1924	2739
+OP_23			Head CT or MRI Scan Results for Acute Ischemic Stroke or Hemorrhagic Stroke Patients who Received Head CT or MRI Scan Interpretation Within 45 minutes of ED Arrival	0.1915	1350
+STK_4			Thrombolytic Therapy	0.1615	994
+IMM_3_OP_27_FAC_ADHPCT	Healthcare workers given influenza vaccination	0.1487	4089
+OP_1			Median Time to Fibrinolysis	0.1336	72
+IMM_2			Influenza Immunization	0.1316	4051
+VTE_5			Venous Thromboembolism Warfarin Therapy Discharge Instructions	0.1218	2043
+
+
+CONCLUSION
+----------
+
+The procedure which ranked first is reported in 55 hospitals only. The reason for the wide variation could be because the improvement in vision can be affected by many reasons such as age and other diseases.
+
+All the procedures in the final result belong to the timely and effective care measures rather than complications and deaths which is a good thing to notice in the data. It means that nationwide hospitals vary more on preventive care and timeliness rather than death rate and serious complications.
+  
+
+
+
+
+ 

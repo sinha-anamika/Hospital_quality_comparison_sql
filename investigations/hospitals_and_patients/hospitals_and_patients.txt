@@ -1,0 +1,45 @@
+
+
+
+
+Are average scores for hospital quality or procedural variability correlated with patient survey responses?
+
+
+Approach and justification
+-------------------------- 
+
+In order to answer the above question I have considered data from survey_responses_tfm and hospital_tfm.
+This survey_responses_tfm table has the raw performance rate given by the patient for seven categories as well as an overall hospital performance rate. I have created a survey_mean_score field which is a mean of seven scores in individual categories. I have not considered the converted 1-10 scores in my calculation as that is a scaled score and may have more noise.
+
+To find the correlation between procedure variation and patient survey, I have taken the hospital level standard deviation across procedures and looked at correlation with both the hospital overall patient score as well as the calculated mean survey score.
+
+ 
+RESULT
+----------- 
+
+corr_avgquality_surveymean	0.5058
+corr_avgquality_ovall_survey	0.4544
+corr_procvar_surveymean		-0.2765	
+corr_procvar_ovall_survey	-0.2095
+
+
+CONCLUSION
+-----------
+
+WHAT THE 4 NAMES ABOVE MEAN?
+corr_avgquality_surveymean - Correlation between hospital average quality and calculated mean survey score
+corr_avgquality_ovall_survey - Correlation between hospital average quality and overall hospital level survey score
+corr_procvar_surveymean - Correlation between hospital procedural variablity and calculated mean survey score
+corr_procvar_ovall_survey - Correlation between hospital procedural variablity and overall hospital level survey score
+
+
+The  query results show that hospital quality has a moderate, positive correlation with  the overall patient survey score as well as the mean score. The correlation is a bit stronger with the calculated mean score rather than the overall survey score because it is driven from individual categorical scores. It is a good thing to see that the measures reported by the hospital as indicators of quality are in line with patient's judgement of quality.
+
+As far as correlation of hospital procedural variability with patient survey response is considered, there is a slight negative correlation. This is partly because procedures metrics are very different from the type of questions being asked to the patient. Also, a patient does gets to experience only limited procedures.
+
+  
+
+
+
+
+ 

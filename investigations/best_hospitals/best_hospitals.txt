@@ -1,0 +1,94 @@
+
+
+What hospitals are models of high-quality care? That is, which hospitals have the most consistently high scores for a variety of procedures.
+
+
+APPROACH AND JUSTIFICATION
+--------------------------
+--------------------------
+
+In order to answer the above question in the context of the data provided, I started by analyzing the "timely and effective care" and "Complications and deaths" files. The reasoning was that since we are asked to look at a variety of procedures, these two files had procedure level metrics for all hospitals. 
+
+Definition of quality
+---------------------
+In defining quality, I have given more importance to serious complications and deaths compared to timely care. As a consumer, I would consider safety and mortality before timely and effective care. There are 14 procedures which have data in the "complications and deaths" file and 24 in the "timely and effective care". I have included all procedures except the procedure "Emergency Department Volume" as I felt this metric did not have anything to do with the quality of care provided by the hospital.
+
+
+HIGHER WEIGTH TO CRITICAL PROCEDURES
+------------------------------------ 
+I have given a weight of 0.6 to "complications and deaths" procedures and 0.4 to "timely and effective care" procedures.  I have also taken into account that for some procedures a high score is an indicator of better quality while for some(example median time measures and death rates ) a low score is an indicator of better quality. I have accounted for this by adding an indicator field in measures_tfm table. During normalization, I subtract the normalized score from 1 for measures where a low score is an indicator of better quality.
+
+
+
+NORMALIZATION OF SCORES ACROSS PROCEDURES
+-----------------------------------------
+The next step was to consolidate all procedures data  into one table called procedures_tfm. The scores were normalized across hospitals by dividing by the max score for each procedure. A weighted normalized score was calculated by taking into account the weight of the procedure.
+
+
+MINIMUM NUMBER OF PROCEDURES TO QUALIFY
+---------------------------------------
+Since the question asked to consider a variety of procedures, I have taken that a hospital should have values for more than 8 measures of the higher weight("Complications and deaths") and 8 measures from lower weight("Timely and effective care " to qualify for being considered for the comparison. This means that hospitals who did not provide data for enough measures are excluded.
+
+
+NULL VALUES
+-----------
+Hospitals that have no data for any of the procedures have been removed from the analysis.
+
+RANKING
+-------
+Finally, hospitals are ranked in the hospitals_tfm according to their total aggregate score, average score, median score, standard deviation of the weighted score. The final ranking is done on 
+combined ranking of average score and standard deviation. These two measures are being used jointly because while we want hospitals who perform consistently(i.e. high median score) we are also looking across a variety of procedures (i.e. low standard deviation). By ranking the hospitals on standard deviation as well as median score, a second level of normalization is applied. 
+
+The reason for taking median value instead of average value is because we are looking for consistency. 
+
+
+Result 
+-------
+
+460060	LONE PEAK HOSPITAL	DRAPER	UT	0.374	7.4802	0.0752	523
+260050	SSM HEALTH ST FRANCIS HOSPITAL - MARYVILLE	MARYVILLE	MO	0.3648	8.7553	0.0864	637
+170094	COFFEY COUNTY HOSPITAL	BURLINGTON	KS	0.371	8.5322	0.0797	638
+230078	LAKELAND HOSPITAL WATERVLIET	WATERVLIET	MI	0.3767	7.1566	0.081	668
+170109	MIAMI COUNTY MEDICAL CENTER	PAOLA	KS	0.3688	8.113	0.082	672
+040047	FIVE RIVERS MEDICAL CENTER	POCAHONTAS	AR	0.3662	7.6899	0.0917	729
+390192	TYLER MEMORIAL HOSPITAL	TUNKHANNOCK	PA	0.3649	7.6629	0.0908	749
+450853	BAYLOR MEDICAL CENTER AT FRISCO	FRISCO	TX	0.3753	7.8817	0.1064	762
+370015	HILLCREST HOSPITAL PRYOR	PRYOR	OK	0.3626	7.6142	0.0811	768
+520208	SSM HEALTH ST MARY'S HOSPITAL - JANESVILLE	JANESVILLE	WI	0.36	10.4414	0.1035	775
+
+
+CONCLUSION
+----------
+The results above have their average weighted normalized score, aggregate normalized score, standard deviation of the weighted normalized score. The last column is the combined rank of average weighted normalized score rank  and weighted normalized score rank and is just used for sorting. The combined rank does not refer to the actual rank  fields in the hospital table.
+
+My top hospitals are not what one would find in a national ranking on some sites. This is 
+because I am looking for high scores across a wide variety of procedures as well as checking for low variation in scores. 
+
+In order to double check my answers, I looked at their overall hospital ratings in 
+Hospitals file and found that all of them have a 4 rating.
+  
+
+
+The below steps helped in getting the results
+1.Understanding the variables given in the files by going through the website.
+I decided to exclude the measure (Emergency department volume) from my
+analysis as I did not think it could be an indication of hospital
+quality. I also found that effective care file had 22 unique procedures and
+complications and deaths file had 14 unique measures. I chose to consider a
+hospital only if had atleast 8 measures from each of the two categories (ie
+50% of complication measures and 37% of effective care measures).
+
+2.Cleansing and organizing the data -  Data was not available for some
+procedures. So, I accounted for the null values. Some measures in
+Effective care were missing in measures file. These were added to
+the measures table.
+
+3.Normalizing the scores helped in getting the various measures on a
+common scale.
+
+4.Ranking the scores and considering the median score ranking as well as the
+variability ranking.
+
+
+
+ 
