@@ -23,9 +23,9 @@ Steps involved
 Solution
 
 
-In order to see the ERD and data load sals, please click on the loading_and_modeling folder https://github.com/sinha-anamika/Hospital_quality_comparison_sql/tree/master/loading_and_modeling.
+In order to see the ERD and data load sqls, please click on the loading_and_modeling folder https://github.com/sinha-anamika/Hospital_quality_comparison_sql/tree/master/loading_and_modeling.
 
-In order to see the data transformation sals, please click on transforming folder. https://github.com/sinha-anamika/Hospital_quality_comparison_sql/blob/master/transforming/transform.sql
+In order to see the data transformation sqls, please click on transforming folder. https://github.com/sinha-anamika/Hospital_quality_comparison_sql/blob/master/transforming/transform.sql
 
 Solution to best hospitals, best States, most variable procedures etc can be found in investigations folder. https://github.com/sinha-anamika/Hospital_quality_comparison_sql/tree/master/investigations
 
